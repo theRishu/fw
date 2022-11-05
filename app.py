@@ -94,5 +94,8 @@ def on_data(data):
             data["type"], sender_sid, target_sid))
     socketio.emit('data', data, room=target_sid)
 
-if __name__ == "__main__":
-    socketio.run(app)
+if __name__ == '__main__':
+    app = socketio.Middleware(sio, app)
+    eventlet.wsgi.server(eventlet.listen(('', 8080)), app)
+
+   
